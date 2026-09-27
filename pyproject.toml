@@ -1,0 +1,21 @@
+[project]
+name = "test-repo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "bag1s3k", email = "174890936+bag1s3k@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "jupyterlab-wakatime>=0.2.0",
+    "openai>=3.3.0",
+    "pydantic-settings>=2.15.0",
+]
+
+[project.scripts]
+test-repo = "test_repo:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
