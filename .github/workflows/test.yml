@@ -1,0 +1,30 @@
+name: Test Bakalari connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-bakalari:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check connection to Bakalari
+        run: |
+          echo "=== DNS resolution ==="
+          getent ahosts bakaweb.cichnovabrno.cz
+
+          echo
+          echo "=== IPv4 ==="
+          curl -4 -sS -o /dev/null \
+            -w 'IPv4: %{remote_ip} HTTP %{http_code} in %{time_total}s\n' \
+            --connect-timeout 10 \
+            --max-time 20 \
+            https://bakaweb.cichnovabrno.cz/login || true
+
+          echo
+          echo "=== IPv6 ==="
+          curl -6 -sS -o /dev/null \
+            -w 'IPv6: %{remote_ip} HTTP %{http_code} in %{time_total}s\n' \
+            --connect-timeout 10 \
+            --max-time 20 \
+            https://bakaweb.cichnovabrno.cz/login || true
